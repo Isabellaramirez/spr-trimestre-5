@@ -12,41 +12,42 @@ class VistaContratista(Resource):
 
         #token_cedula = get_jwt_identity()
         #obtener la cedula del usuario desde el token 
-        #cedula = get_jwt_identity() lo comentareo ya que la cedula se esta llamando como un parametro en el metodo asi que no es necesario
+        #cedula = get_jwt_identity() #lo comentareo ya que la cedula se esta llamando como un parametro en el metodo asi que no es necesario
         contratista = Usuario.query.get_or_404(cedula)
-        contratista = {
+        if contratista is None :
+            return {'mensaje': 'contratista no encontrado'}, 404
+        contratista_data = {
             "nombres":contratista.nombres ,
             "apellidos":contratista.apellidos ,
             "celular":contratista.celular ,
             "direccion":contratista.direccion  ,
             "correo":contratista.correo ,
-            "fecha_nacimiento":contratista.fecha_nacimiento  ,
-            "foto": contratista.foto,
-             "titulos_uni": contratista.titulos_uni }
+            "fecha_nacimiento":contratista.fecha_nacimiento.strftime('%Y-%m-%d')  ,
+            "foto": contratista.foto
+             }
         
-        if contratista is None :
-            return {'mensaje': 'contratista no encontrado'}, 404
-        
-        return usuario_schema.dump(contratista), 200 #esto es para traer todo lo insertado 
+        return contratista_data, 200 #esto es para traer todo lo insertado 
 
 
 class VistaPrestador(Resource):
     @jwt_required()
     def get(self, cedula):
         prestador = Usuario.query.get_or_404(cedula)
-        prestador = {
+        if prestador is None:
+            return { 'mensaje': 'prestador no encontrado'}, 404
+        prestador_data = {
             "nombres" : prestador.nombres,
             "apellidos":prestador.apellidos ,
             "celular":prestador.celular ,
             "direccion":prestador.direccion  ,
+            "titulos_uni": prestador.titulos_uni,
+            "descripcion": prestador.descripcion,
             "correo":prestador.correo ,
-            "fecha_nacimiento":prestador.fecha_nacimiento  ,
+            "fecha_nacimiento":prestador.fecha_nacimiento.strftime('%Y-%m-%d')  ,
             "foto": prestador.foto
 
         }
-        if prestador is None:
-            return {'mensaje' : 'presdor de servicio no encontrado'}, 404
-        return usuario_schema.dump(prestador),200
+        return prestador_data,200
 
    
 class VistaSignIn(Resource):    
@@ -117,7 +118,7 @@ class VistaLogin(Resource):
         u_contrasena = request.json["contrasena"]
         usuario = Usuario.query.filter_by(correo = u_correo).first()
         if usuario and usuario.verificar_contrasena(u_contrasena):
-            token_de_acceso = create_access_token(identity=usuario.cedula) #se generaq el token
+            token_de_acceso = create_access_token(identity=str(usuario.cedula)) #se generaq el token
             return { 'mensaje' : 'inicio de sesion exitoso', 'token_de_acceso': token_de_acceso}, 200
         else:
             return {'mensaje' : 'nombre de usuario o contraseña incorrectos, por favor intente de nuevo'}, 401
