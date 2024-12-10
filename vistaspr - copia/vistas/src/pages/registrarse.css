@@ -1,0 +1,76 @@
+/* Fondo general con degradado */
+body {
+  background: linear-gradient(to bottom, #4A148C, #7E57C2); /* Degradado púrpura */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Asegura que ocupe toda la ventana */
+  color: #333;
+}
+
+/* Contenedor del formulario */
+form {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 40px; /* Aumentar el padding para más espacio */
+  width: 350px;
+  text-align: center;
+}
+
+/* Logo dentro del formulario */
+form img {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+/* Título */
+form h2 {
+  color: #4A148C; /* Púrpura oscuro */
+  margin-bottom: 20px;
+  font-weight: bold; /* Hacer el título más destacado */
+}
+
+/* Inputs y select */
+form select, form input {
+  width: 100%;
+  padding: 12px; /* Aumentar el padding para mayor comodidad */
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease; /* Transición suave para el borde */
+}
+
+form input:focus, form select:focus {
+  border-color: #7E57C2; /* Color púrpura claro */
+  outline: none;
+}
+
+/* Botón de enviar */
+form button {
+  width: 100%;
+  padding: 12px; /* Aumentar el padding para mayor comodidad */
+  background-color: #4A148C; /* Púrpura oscuro */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Agregar transición para el efecto de hover */
+}
+
+form button:hover {
+  background-color: #7E57C2; /* Púrpura claro */
+  transform: translateY(-2px); /* Efecto de elevación al pasar el mouse */
+}
+
+/* Ajuste de sombras */
+form button:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(78, 52, 100, 0.6);
+}

@@ -1,0 +1,32 @@
+.perfil-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .perfil-form label {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  .perfil-form input, .perfil-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  button.delete-button {
+    background-color: red;
+    color: white;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
